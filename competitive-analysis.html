@@ -6,7 +6,13 @@
   <title>Project Velvet 競合優位性分析</title>
   <meta name="description" content="Project Velvet がナイトワーク顧客管理市場で勝つための競合分析、差別化論点、MVP戦略。">
   <meta name="theme-color" content="#11171d">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Project Velvet 競合優位性分析">
+  <meta property="og:description" content="顧客管理ではなく、夜職の売上行動を動かすAI営業秘書として勝つための競合分析。">
+  <meta property="og:url" content="https://ryoki63.github.io/NW-preview/competitive-analysis.html">
+  <meta name="twitter:card" content="summary">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://ryoki63.github.io/NW-preview/competitive-analysis.html">
   <style>
     :root {
       color-scheme: light;
@@ -126,18 +132,29 @@
       color: var(--navy);
     }
 
-    .toc-actions {
+    .preview-tabs {
       display: grid;
-      gap: 8px;
-      margin-top: 20px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      margin: 0 0 18px;
     }
 
-    .toc-actions a {
+    .preview-tabs a {
       border: 1px solid var(--line);
       background: var(--surface);
       color: var(--navy);
+      border-radius: 6px;
       font-weight: 700;
       text-align: center;
+      padding: 8px 6px;
+      text-decoration: none;
+    }
+
+    .preview-tabs a:hover,
+    .preview-tabs a.active {
+      border-color: rgba(185,99,61,.38);
+      background: var(--surface-warm);
+      color: var(--brick);
     }
 
     main {
@@ -615,6 +632,11 @@
           <span>競合優位性分析 v0.1</span>
         </div>
       </div>
+      <nav class="preview-tabs" aria-label="共有プレビューの切り替え">
+        <a href="./">iOS</a>
+        <a href="./btob/">BtoB</a>
+        <a class="active" href="./competitive-analysis.html" aria-current="page">分析</a>
+      </nav>
       <ol>
         <li><a href="#summary">1. 結論</a></li>
         <li><a href="#market">2. 競合地図</a></li>
@@ -625,10 +647,6 @@
         <li><a href="#roadmap">7. 実装ロードマップ</a></li>
         <li><a href="#sources">8. 根拠ソース</a></li>
       </ol>
-      <div class="toc-actions">
-        <a href="./">iOSモックへ</a>
-        <a href="./btob/">BtoB画面へ</a>
-      </div>
     </aside>
 
     <main>

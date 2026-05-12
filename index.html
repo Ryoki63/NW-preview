@@ -9,16 +9,21 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Project Velvet Preview">
   <meta property="og:description" content="Project Velvet の共有用インタラクティブHTMLモックアップ。">
-  <meta property="og:url" content="https://ryoki63.github.io/NW/">
+  <meta property="og:url" content="https://ryoki63.github.io/NW-preview/">
   <meta name="twitter:card" content="summary">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="canonical" href="https://ryoki63.github.io/NW/">
+  <link rel="canonical" href="https://ryoki63.github.io/NW-preview/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
+  <nav class="preview-tabs" aria-label="共有プレビューの切り替え">
+    <a class="active" href="./" aria-current="page">iOSモック</a>
+    <a href="./btob/">BtoB PC</a>
+    <a href="./competitive-analysis.html">競合分析</a>
+  </nav>
   <div class="final-shell">
     <aside class="side">
       <div class="brand">
@@ -28,7 +33,10 @@
           <span>夜のおしごとアプリ</span>
         </div>
       </div>
-      <a class="switch-link" href="./btob/">オーナー画面 (PC) へ →</a>
+      <div class="side-link-group">
+        <a class="switch-link" href="./btob/">オーナー画面 (PC) へ →</a>
+        <a class="switch-link secondary" href="./competitive-analysis.html">競合分析レポート →</a>
+      </div>
       <nav id="screenNav" class="screen-nav"></nav>
     </aside>
 

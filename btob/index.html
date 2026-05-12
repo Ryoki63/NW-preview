@@ -9,16 +9,21 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Project Velvet Preview · Owner Dashboard">
   <meta property="og:description" content="Project Velvet のオーナー向けPC画面モックアップ。">
-  <meta property="og:url" content="https://ryoki63.github.io/NW/btob/">
+  <meta property="og:url" content="https://ryoki63.github.io/NW-preview/btob/">
   <meta name="twitter:card" content="summary">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link rel="canonical" href="https://ryoki63.github.io/NW/btob/">
+  <link rel="canonical" href="https://ryoki63.github.io/NW-preview/btob/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./btob.css">
 </head>
 <body>
+  <nav class="preview-tabs" aria-label="共有プレビューの切り替え">
+    <a href="../">iOSモック</a>
+    <a class="active" href="./" aria-current="page">BtoB PC</a>
+    <a href="../competitive-analysis.html">競合分析</a>
+  </nav>
   <div class="btob-shell">
     <aside class="btob-side">
       <a class="brand" href="../">
@@ -55,6 +60,7 @@
           <button class="seg">今四半期</button>
           <button class="icon">!</button>
           <a class="icon" href="../">iOS</a>
+          <a class="icon wide" href="../competitive-analysis.html">分析</a>
         </div>
       </header>
       <main id="btobMain" class="btob-main"></main>
