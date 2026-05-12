@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Velvet 競合優位性分析</title>
+  <meta name="description" content="Project Velvet がナイトワーク顧客管理市場で勝つための競合分析、差別化論点、MVP戦略。">
+  <meta name="theme-color" content="#11171d">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #20242a;
+      --ink-soft: #555f6b;
+      --ink-muted: #7b8490;
+      --paper: #fbfaf7;
+      --surface: #ffffff;
+      --surface-cool: #edf3f4;
+      --surface-warm: #f5eee6;
+      --line: #d9dde1;
+      --line-strong: #b9c1c9;
+      --navy: #18364a;
+      --teal: #1e625b;
+      --brick: #b9633d;
+      --gold: #b8913b;
+      --plum: #7b4e63;
+      --green: #547148;
+      --shadow: 0 18px 42px rgba(24, 54, 74, 0.10);
+      --radius: 8px;
+      --font: "Hiragino Sans", "Yu Gothic", "BIZ UDPGothic", system-ui, sans-serif;
+      --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(180deg, rgba(237, 243, 244, 0.90), rgba(251, 250, 247, 0.98) 32rem),
+        var(--paper);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    a {
+      color: var(--teal);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      min-height: 100vh;
+      min-width: 0;
+    }
+
+    .toc {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      min-width: 0;
+      overflow: auto;
+      border-right: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(18px);
+      padding: 28px 20px;
+    }
+
+    .toc-brand {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 18px;
+      margin-bottom: 18px;
+    }
+
+    .mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--navy);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .toc strong {
+      display: block;
+      color: var(--navy);
+      font-size: 14px;
+    }
+
+    .toc span {
+      display: block;
+      color: var(--ink-muted);
+      font-size: 12px;
+    }
+
+    .toc ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 7px;
+    }
+
+    .toc a {
+      display: block;
+      border-radius: 6px;
+      color: var(--ink-soft);
+      font-size: 13px;
+      line-height: 1.45;
+      padding: 7px 8px;
+      text-decoration: none;
+    }
+
+    .toc a:hover {
+      background: var(--surface-cool);
+      color: var(--navy);
+    }
+
+    .toc-actions {
+      display: grid;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .toc-actions a {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--navy);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    main {
+      width: min(100%, 1180px);
+      min-width: 0;
+      padding: 42px 52px 96px;
+    }
+
+    .hero {
+      display: grid;
+      gap: 26px;
+      border-bottom: 3px solid var(--navy);
+      padding-bottom: 32px;
+      margin-bottom: 38px;
+    }
+
+    .eyebrow {
+      color: var(--brick);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      color: var(--navy);
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 860px;
+      margin: 0;
+      font-size: clamp(32px, 5vw, 56px);
+    }
+
+    h2 {
+      margin: 58px 0 16px;
+      border-bottom: 1px solid var(--line-strong);
+      padding-bottom: 8px;
+      font-size: 27px;
+    }
+
+    h3 {
+      margin: 28px 0 10px;
+      font-size: 19px;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    .lead {
+      max-width: 880px;
+      color: var(--ink-soft);
+      font-size: 18px;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.72);
+      color: var(--ink-soft);
+      padding: 0 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .verdict {
+      border: 1px solid rgba(30, 98, 91, .30);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgba(30, 98, 91, .11), rgba(255,255,255,.86)),
+        var(--surface);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .verdict strong {
+      color: var(--teal);
+      font-size: 21px;
+    }
+
+    .verdict p {
+      color: var(--ink-soft);
+      margin-top: 8px;
+    }
+
+    .score-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .score-card .num {
+      display: block;
+      color: var(--brick);
+      font-family: var(--mono);
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .score-card span {
+      color: var(--ink-muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .kpi {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 15px;
+    }
+
+    .kpi b {
+      display: block;
+      color: var(--navy);
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .kpi small {
+      display: block;
+      color: var(--ink-muted);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    .section-note {
+      border-left: 4px solid var(--brick);
+      background: var(--surface-warm);
+      color: var(--ink-soft);
+      padding: 15px 18px;
+      margin: 18px 0;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: 0 10px 24px rgba(24, 54, 74, .06);
+      padding: 18px;
+    }
+
+    .panel h3 {
+      margin-top: 0;
+    }
+
+    .panel p,
+    .panel li {
+      color: var(--ink-soft);
+    }
+
+    .panel ul,
+    .panel ol {
+      margin: 10px 0 0;
+      padding-left: 20px;
+    }
+
+    .lane {
+      display: grid;
+      gap: 10px;
+    }
+
+    .competitor {
+      border-left: 4px solid var(--line-strong);
+      background: #fff;
+      padding: 12px 14px;
+    }
+
+    .competitor.individual { border-left-color: var(--brick); }
+    .competitor.store { border-left-color: var(--navy); }
+    .competitor.tax { border-left-color: var(--green); }
+
+    .competitor strong {
+      display: block;
+      color: var(--navy);
+    }
+
+    .competitor span {
+      color: var(--ink-muted);
+      font-size: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 12px 13px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: var(--navy);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    td {
+      color: var(--ink-soft);
+    }
+
+    td:first-child {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .rating {
+      display: inline-grid;
+      min-width: 82px;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--surface-cool);
+      color: var(--teal);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 800;
+      padding: 3px 8px;
+    }
+
+    .matrix {
+      position: relative;
+      min-height: 520px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(90deg, transparent calc(50% - .5px), rgba(24,54,74,.22) calc(50% - .5px), rgba(24,54,74,.22) calc(50% + .5px), transparent calc(50% + .5px)),
+        linear-gradient(180deg, transparent calc(50% - .5px), rgba(24,54,74,.22) calc(50% - .5px), rgba(24,54,74,.22) calc(50% + .5px), transparent calc(50% + .5px)),
+        linear-gradient(135deg, rgba(237,243,244,.82), rgba(245,238,230,.78));
+      overflow: hidden;
+      margin: 18px 0 10px;
+    }
+
+    .axis {
+      position: absolute;
+      color: var(--ink-muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .axis.top { top: 14px; left: 50%; transform: translateX(-50%); }
+    .axis.bottom { bottom: 14px; left: 50%; transform: translateX(-50%); }
+    .axis.left { left: 14px; top: 50%; transform: translateY(-50%) rotate(-90deg); transform-origin: left center; }
+    .axis.right { right: 14px; top: 50%; transform: translateY(-50%) rotate(90deg); transform-origin: right center; }
+
+    .bubble {
+      position: absolute;
+      display: grid;
+      min-width: 96px;
+      min-height: 42px;
+      place-items: center;
+      border: 1px solid rgba(24,54,74,.16);
+      border-radius: 999px;
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 8px 22px rgba(24,54,74,.12);
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 800;
+      padding: 8px 12px;
+      text-align: center;
+    }
+
+    .bubble.small { min-width: 74px; min-height: 36px; font-size: 11px; }
+    .bubble.store { background: rgba(24,54,74,.92); color: #fff; }
+    .bubble.tax { background: rgba(84,113,72,.92); color: #fff; }
+    .bubble.velvet {
+      min-width: 148px;
+      min-height: 54px;
+      border-color: rgba(185,99,61,.45);
+      background: var(--brick);
+      color: #fff;
+      box-shadow: 0 16px 34px rgba(185,99,61,.28);
+      font-size: 14px;
+    }
+
+    .funnel {
+      display: grid;
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .funnel-step {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr) 170px;
+      gap: 12px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 12px;
+    }
+
+    .funnel-step b {
+      color: var(--navy);
+    }
+
+    .funnel-step p {
+      margin: 0;
+      color: var(--ink-soft);
+    }
+
+    .funnel-step em {
+      color: var(--brick);
+      font-style: normal;
+      font-weight: 800;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .phase {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: 16px;
+      border-left: 4px solid var(--navy);
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 15px;
+      box-shadow: 0 8px 20px rgba(24,54,74,.05);
+    }
+
+    .phase .date {
+      color: var(--brick);
+      font-family: var(--mono);
+      font-weight: 800;
+    }
+
+    .phase h3 {
+      margin: 0 0 6px;
+    }
+
+    .phase ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+      color: var(--ink-soft);
+    }
+
+    .callout {
+      border: 1px solid rgba(185, 99, 61, .34);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgba(185, 99, 61, .11), rgba(255,255,255,.92)),
+        var(--surface);
+      padding: 22px;
+      margin: 24px 0;
+    }
+
+    .callout strong {
+      display: block;
+      color: var(--brick);
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .source-list {
+      display: grid;
+      gap: 10px;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .source-list li {
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+      color: var(--ink-soft);
+    }
+
+    .source-list b {
+      color: var(--navy);
+    }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      margin-top: 54px;
+      padding-top: 18px;
+      color: var(--ink-muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .toc {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .toc ol { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      main { padding: 30px 20px 72px; }
+      .hero-grid,
+      .two-col,
+      .three-col,
+      .kpi-grid { grid-template-columns: 1fr; }
+      .funnel-step,
+      .phase { grid-template-columns: 1fr; }
+      .matrix { min-height: 640px; }
+    }
+
+    @media (max-width: 620px) {
+      body { font-size: 14px; }
+      .toc ol { grid-template-columns: 1fr; }
+      h1 { font-size: 31px; }
+      h2 { font-size: 23px; }
+      table { display: block; max-width: 100%; overflow-x: auto; white-space: normal; }
+      th, td { min-width: 150px; }
+      .matrix { min-height: 700px; }
+      .bubble { transform: scale(.92); transform-origin: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="toc">
+      <div class="toc-brand">
+        <div class="mark">V</div>
+        <div>
+          <strong>Project Velvet</strong>
+          <span>競合優位性分析 v0.1</span>
+        </div>
+      </div>
+      <ol>
+        <li><a href="#summary">1. 結論</a></li>
+        <li><a href="#market">2. 競合地図</a></li>
+        <li><a href="#gap">3. 空白地帯</a></li>
+        <li><a href="#positioning">4. ポジショニング</a></li>
+        <li><a href="#moat">5. 勝ち筋と堀</a></li>
+        <li><a href="#risk">6. リスク</a></li>
+        <li><a href="#roadmap">7. 実装ロードマップ</a></li>
+        <li><a href="#sources">8. 根拠ソース</a></li>
+      </ol>
+      <div class="toc-actions">
+        <a href="./">iOSモックへ</a>
+        <a href="./btob/">BtoB画面へ</a>
+      </div>
+    </aside>
+
+    <main>
+      <section class="hero" id="summary">
+        <div>
+          <div class="eyebrow">Competitive Strategy Memo</div>
+          <h1>顧客管理ではなく、夜職の売上行動を動かすAI営業秘書として勝つ</h1>
+          <p class="lead">
+            Project Velvet は、ナイトワーク向け顧客管理アプリと夜職支援アプリの両面を持つ。
+            ただし市場で勝つには「顧客情報を保存する箱」ではなく、「今日、誰に、何を、どう送ると売上に近づくか」を出す
+            <b>AI Revenue Assistant</b> として定義する必要がある。
+          </p>
+          <div class="meta-row">
+            <span class="tag">調査日: 2026-05-12</span>
+            <span class="tag">対象: 個人キャスト / 店舗 / 会計</span>
+            <span class="tag">目的: HTMLモックからアプリ実装への判断材料</span>
+          </div>
+        </div>
+
+        <div class="hero-grid">
+          <div class="verdict">
+            <strong>判定: 勝てる。ただし「CRM」と名乗るほど弱くなる。</strong>
+            <p>
+              既存プレイヤーは、顧客メモ、来店記録、売上管理、LINE送信、店舗オペレーションをすでに押さえている。
+              Velvet が優位を取れるのは、入力された情報を保管することではなく、営業行動を提案し、送信文を作り、結果を学習して、
+              次回の期待売上を上げる循環を作る部分である。
+            </p>
+          </div>
+          <div class="score-card">
+            <span>Recommended wedge</span>
+            <span class="num">3分</span>
+            <p>共有モックで最初に見せるべき体験は「今日の売上アクション3件」。登録画面ではなく、売上につながる一連の判断を見せる。</p>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi">
+            <b>BtoC個人起点</b>
+            <small>まずはキャスト本人の売上改善に集中する。店舗管理は後段。</small>
+          </div>
+          <div class="kpi">
+            <b>AI次アクション</b>
+            <small>誰に連絡すべきか、なぜ今か、どの文面かを出す。</small>
+          </div>
+          <div class="kpi">
+            <b>音声メモ入力</b>
+            <small>退勤後の入力負荷を減らし、AIの学習データを増やす。</small>
+          </div>
+          <div class="kpi">
+            <b>税務は補助</b>
+            <small>freeeの代替ではなく、夜職文脈の前処理として扱う。</small>
+          </div>
+        </div>
+      </section>
+
+      <section id="market">
+        <h2>1. 競合地図: 市場はすでに埋まっている</h2>
+        <p>
+          ナイトワーク支援の競合は、単一カテゴリではない。個人向けCRM、店舗向けSaaS/POS、会計/確定申告の3領域が重なっている。
+          Velvet はこの重なりにいるため、全方位で比較される可能性がある。
+        </p>
+
+        <div class="three-col">
+          <div class="panel">
+            <h3>個人キャスト向けCRM</h3>
+            <div class="lane">
+              <div class="competitor individual"><strong>Melty</strong><span>顧客情報、カレンダー、成績/売上、LINE一斉送信。</span></div>
+              <div class="competitor individual"><strong>Pappimane</strong><span>LINEベースの顧客管理、テンプレ、一斉送信、目標管理。</span></div>
+              <div class="competitor individual"><strong>Ripika</strong><span>無料訴求。顧客、来店、スケジュール、売上、メッセージ。</span></div>
+              <div class="competitor individual"><strong>Falcon</strong><span>ホスト専用。売掛、成績、スケジュール、LINE送信。</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>店舗向けSaaS/POS</h3>
+            <div class="lane">
+              <div class="competitor store"><strong>Nightbase</strong><span>店舗管理、スタッフ、シフト、売上、給与、予約、フロア管理。</span></div>
+              <div class="competitor store"><strong>LNXS</strong><span>キャバクラPOS。注文、指名、バック率、勤怠、店舗管理。</span></div>
+              <div class="competitor store"><strong>tasteck</strong><span>予約、配車、CTI、シフト、顧客分析、LTV分析。</span></div>
+              <div class="competitor store"><strong>クラマネ</strong><span>管理者とキャストで顧客/来店情報を共有する方向。</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>会計/確定申告</h3>
+            <div class="lane">
+              <div class="competitor tax"><strong>freee</strong><span>金融明細、レシート撮影、AI仕訳、電子帳簿保存法対応。</span></div>
+              <div class="competitor tax"><strong>MFクラウド等</strong><span>会計本体。税務の正確性、金融連携、申告導線に強い。</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-note">
+          <b>示唆:</b> 顧客管理・店舗管理・会計のどれか一つで正面衝突すると、既存競合の機能網羅性に飲まれる。
+          Velvet は「夜職個人の売上行動をAIで動かす」という横串の体験で勝つべき。
+        </div>
+      </section>
+
+      <section id="gap">
+        <h2>2. 空白地帯: 競合は“記録”に強く、“行動生成”が弱い</h2>
+        <p>
+          既存CRMは、前回会話、趣味、来店日、使った金額、スケジュール、LINE一斉送信を扱う。
+          これは重要だが、ユーザーが本当に困っているのは「記録すること」だけではない。
+          仕事の現場では、次の5つの問いが連続して発生する。
+        </p>
+
+        <div class="funnel">
+          <div class="funnel-step">
+            <b>記憶</b>
+            <p>前回何を話したか。どの話題が刺さったか。</p>
+            <em>競合も対応</em>
+          </div>
+          <div class="funnel-step">
+            <b>判断</b>
+            <p>今日、誰に連絡すべきか。なぜその人なのか。</p>
+            <em>空白が大きい</em>
+          </div>
+          <div class="funnel-step">
+            <b>文面</b>
+            <p>コピペに見えず、相手ごとに自然なLINEをどう書くか。</p>
+            <em>Velvetの主戦場</em>
+          </div>
+          <div class="funnel-step">
+            <b>予測</b>
+            <p>来店確率、期待売上、同伴可能性、離脱リスクをどう読むか。</p>
+            <em>差別化領域</em>
+          </div>
+          <div class="funnel-step">
+            <b>学習</b>
+            <p>送信後の反応、来店、売上を次の提案にどう反映するか。</p>
+            <em>持続的な堀</em>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>Velvetのプロダクト定義</strong>
+          「顧客管理アプリ」ではなく、「夜職個人の売上行動を、記憶・判断・文面・予測・学習で支えるAI営業秘書」。
+        </div>
+      </section>
+
+      <section id="positioning">
+        <h2>3. ポジショニング: 右上を取りにいく</h2>
+        <p>
+          下のマップは、横軸を「個人の顧客関係を誰が持つか」、縦軸を「記録中心か、次アクション生成中心か」に置いたもの。
+          店舗SaaSは業務管理に強いが、キャスト個人の営業文脈には入りにくい。個人CRMは本人に近いが、まだ記録/分析中心に見える。
+        </p>
+
+        <div class="matrix" aria-label="競合ポジショニングマップ">
+          <div class="axis top">Action / Prediction</div>
+          <div class="axis bottom">Record / Admin</div>
+          <div class="axis left">Individual owner</div>
+          <div class="axis right">Store owner</div>
+
+          <div class="bubble small" style="left:12%; top:66%;">Ripika</div>
+          <div class="bubble" style="left:19%; top:58%;">Pappimane</div>
+          <div class="bubble" style="left:24%; top:48%;">Melty</div>
+          <div class="bubble" style="left:16%; top:41%;">Falcon</div>
+          <div class="bubble store" style="right:20%; top:59%;">Nightbase</div>
+          <div class="bubble store" style="right:11%; top:53%;">LNXS</div>
+          <div class="bubble store" style="right:17%; top:35%;">tasteck</div>
+          <div class="bubble tax" style="right:35%; bottom:22%;">freee</div>
+          <div class="bubble velvet" style="left:34%; top:16%;">Velvet<br>AI営業秘書</div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>比較軸</th>
+              <th>個人CRM競合</th>
+              <th>店舗SaaS/POS競合</th>
+              <th>freee等会計</th>
+              <th>Velvetで取るべき位置</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>主ユーザー</td>
+              <td>キャスト/ホスト本人</td>
+              <td>オーナー、店長、店舗スタッフ</td>
+              <td>個人事業主、法人</td>
+              <td><span class="rating">強く取る</span> 個人キャスト本人</td>
+            </tr>
+            <tr>
+              <td>主価値</td>
+              <td>忘れない、整理する、LINEを楽にする</td>
+              <td>店舗運営を回す、集計する、給与/会計を管理する</td>
+              <td>正しく経理/申告する</td>
+              <td><span class="rating">差別化</span> 今日の売上行動を決める</td>
+            </tr>
+            <tr>
+              <td>AIの深さ</td>
+              <td>現状は明示的なAI行動生成が弱い</td>
+              <td>分析/業務効率化寄り</td>
+              <td>仕訳/登録補助に強い</td>
+              <td><span class="rating">主戦場</span> 個客別の文面と次アクション</td>
+            </tr>
+            <tr>
+              <td>入力負荷</td>
+              <td>手入力/メモが中心</td>
+              <td>店舗オペレーション入力が中心</td>
+              <td>レシート/明細入力は強い</td>
+              <td><span class="rating">必須</span> 音声メモ、名刺、LINE文脈で入力を削る</td>
+            </tr>
+            <tr>
+              <td>弱点</td>
+              <td>記録した後の判断が本人任せ</td>
+              <td>キャスト本人の秘密/営業資産と衝突しやすい</td>
+              <td>夜職の営業文脈には深く入らない</td>
+              <td><span class="rating">狙い目</span> 本人だけの営業資産をAI化</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="moat">
+        <h2>4. 勝ち筋: AI営業秘書の堀を作る</h2>
+        <p>
+          Velvet の堀は、単にAIを載せることではない。夜職の営業行動は、会話、来店履歴、好み、誕生日、同伴、ボトル、返信率、売上が絡む。
+          これらを「本人にしか見えない営業資産」として蓄積し、毎日の提案に変換することが堀になる。
+        </p>
+
+        <div class="two-col">
+          <div class="panel">
+            <h3>勝ち筋 A: Next Best Action</h3>
+            <p>ホーム画面を「顧客一覧」ではなく「今日の売上アクション」にする。</p>
+            <ul>
+              <li>田中さん: 18日空いたので近況LINE</li>
+              <li>山田さん: 時計の話題で同伴提案</li>
+              <li>佐藤さん: 誕生日5日前の予告メッセージ</li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <h3>勝ち筋 B: 文面の個別最適化</h3>
+            <p>「テンプレ」ではなく、相手の記憶から自然な文面を3案出す。</p>
+            <ul>
+              <li>本命: 売上期待が高い相手</li>
+              <li>やさしめ: 離脱防止</li>
+              <li>軽め: 返信ハードルを下げる</li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <h3>勝ち筋 C: 入力の削減</h3>
+            <p>退勤後の眠い時間に手入力させない。音声メモを構造化し、顧客メモ、来店記録、TODOへ分解する。</p>
+            <ul>
+              <li>「山田さん時計買った」から話題タグ生成</li>
+              <li>「12万、同伴」から来店記録生成</li>
+              <li>「週末誘う」から次回TODO生成</li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <h3>勝ち筋 D: 結果学習</h3>
+            <p>送ったか、返信が来たか、来店したか、売上につながったかを学習する。これが競合に対する長期の堀になる。</p>
+            <ul>
+              <li>返信率が高い文体</li>
+              <li>来店しやすい曜日/時間</li>
+              <li>単価が上がる話題</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section-note">
+          <b>BtoBの扱い:</b> 店舗ダッシュボードは有望だが、初期から前面に出しすぎると「キャストの顧客情報を店が見る」不安を生む。
+          最初は本人管理を核にし、BtoBは本人許可済みの集計、チーム支援、売上予測に限定する。
+        </div>
+      </section>
+
+      <section id="risk">
+        <h2>5. リスクと反証可能性</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>リスク</th>
+              <th>なぜ危ないか</th>
+              <th>対策</th>
+              <th>検証指標</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AI提案が浅い</td>
+              <td>テンプレ文と変わらないと、既存CRMのLINE機能で十分になる。</td>
+              <td>顧客記憶、来店履歴、話題タグ、売上期待を必ず文面に反映する。</td>
+              <td>AI文面採用率、編集率、返信率</td>
+            </tr>
+            <tr>
+              <td>入力が面倒</td>
+              <td>夜職ユーザーは退勤後に疲れており、手入力は継続しにくい。</td>
+              <td>音声メモ、名刺、最小タップ来店記録を最優先で作る。</td>
+              <td>週3回以上の記録率、1記録あたり秒数</td>
+            </tr>
+            <tr>
+              <td>プライバシー不安</td>
+              <td>顧客情報は本人の営業資産。店舗や外部AIに見られる不安が強い。</td>
+              <td>ローカル暗号化、共有範囲表示、BtoBは本人許可の集計に限定。</td>
+              <td>初回オンボーディング離脱率、共有設定変更率</td>
+            </tr>
+            <tr>
+              <td>freeeと正面衝突</td>
+              <td>会計本体は金融連携、法令対応、申告導線が強い。</td>
+              <td>税務は「夜職向け経費メモ/前処理/CSV連携」に限定する。</td>
+              <td>レシート保存率、CSV出力利用率</td>
+            </tr>
+            <tr>
+              <td>BtoC/BtoBの衝突</td>
+              <td>店向け価値を強めるほど、個人キャストの心理的安全性が落ちる。</td>
+              <td>初期はBtoCをプロダクトの顔にする。BtoBは管理ではなく支援と集計。</td>
+              <td>キャスト継続率、店舗導入時の同意率</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="roadmap">
+        <h2>6. HTMLモックからアプリ実装へのロードマップ</h2>
+        <p>
+          次の改修は画面数の追加ではなく、3分で価値が伝わるストーリーの圧縮が重要。
+          「登録する」ではなく「売上行動が決まる」体験から始める。
+        </p>
+
+        <div class="timeline">
+          <div class="phase">
+            <div class="date">Phase 1</div>
+            <div>
+              <h3>共有モックの勝ち筋強化</h3>
+              <ul>
+                <li>ホームを「今日の売上アクション3件」に再設計</li>
+                <li>顧客詳細に「AIがこの提案をした理由」を追加</li>
+                <li>LINE文面生成を、相手別の記憶に基づく3案にする</li>
+                <li>音声メモから顧客メモ/TODO/来店記録が生成されるデモを濃くする</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="date">Phase 2</div>
+            <div>
+              <h3>SwiftUI MVP実装</h3>
+              <ul>
+                <li>顧客、来店、メモ、TODO、AI提案の最小データモデル</li>
+                <li>ローカル暗号化とFace IDロック</li>
+                <li>音声入力とAI構造化</li>
+                <li>AI文面生成と送信結果ログ</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="date">Phase 3</div>
+            <div>
+              <h3>BtoB拡張の検証</h3>
+              <ul>
+                <li>本人許可済みの売上集計</li>
+                <li>キャストの入力支援状況</li>
+                <li>店舗全体の離脱リスク/売上予測</li>
+                <li>個人の営業資産を侵害しない権限設計</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>次のHTML改修で最初にやること</strong>
+          iOSモックの初期画面を「顧客一覧」ではなく「AIが選んだ今日の3アクション」に寄せる。
+          この1画面で、Velvet が既存CRMではなく売上行動エンジンであることを伝える。
+        </div>
+      </section>
+
+      <section id="sources">
+        <h2>7. 根拠ソース</h2>
+        <p>
+          以下は公開ページの確認に基づく。価格や機能は変更される可能性があるため、実装/営業資料化の直前に再確認する。
+        </p>
+        <ul class="source-list">
+          <li><b>Melty:</b> ナイトワーク個人向けに、顧客情報、カレンダー、売上/成績、LINE一斉送信を訴求。<a href="https://melty-app.com/lp/">公式LP</a></li>
+          <li><b>Pappimane:</b> LINEベースの顧客管理、スケジュール、売上、テンプレ、一斉送信、25人まで無料を訴求。<a href="https://pappimane.com/">公式LP</a></li>
+          <li><b>Ripika:</b> 無料プラン、無制限の顧客管理、来店/スケジュール、売上、メッセージ機能を訴求。<a href="https://ripika.app/lp">公式LP</a></li>
+          <li><b>Falcon:</b> ホスト専用。顧客管理、スケジュール、売掛、成績、LINE一斉送信、月額980円を訴求。<a href="https://falcon-app.jp/">公式LP</a></li>
+          <li><b>Nightbase:</b> 店舗管理。無料プランから、シフト、売上集計、給与、予約、送迎、フロア/伝票管理へ拡張。<a href="https://www.nightbase.jp/">公式LP</a></li>
+          <li><b>LNXS:</b> キャバクラ特化POS。注文、指名、バック率、勤怠、給与、店舗管理を統合。<a href="https://lnxs.jp/">公式LP</a></li>
+          <li><b>tasteck:</b> ナイトレジャー業界向けSaaS。予約、配車、シフト、顧客分析、LTV/CPM等の高度分析を訴求。<a href="https://tasteck.tech/">公式LP</a></li>
+          <li><b>freee:</b> 金融明細の自動取得、レシート撮影、AI仕訳、電子帳簿保存法対応を訴求。<a href="https://www.freee.co.jp/accounting/individual/func/deals/">公式ページ</a></li>
+        </ul>
+      </section>
+
+      <div class="footer">
+        Project Velvet Competitive Analysis v0.1 / Created for internal product strategy and mockup planning.
+      </div>
+    </main>
+  </div>
+</body>
+</html>
