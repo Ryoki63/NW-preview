@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Velvet Preview</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <style>
+    :root { color-scheme: dark; }
+    body {
+      display: grid;
+      min-height: 100vh;
+      margin: 0;
+      place-items: center;
+      background: #080c11;
+      color: #e8e5dd;
+      font-family: "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+    }
+    p { color: #a8a39a; }
+  </style>
+</head>
+<body>
+  <main>
+    <strong>Project Velvet Preview</strong>
+    <p>プレビューを開いています...</p>
+  </main>
+  <script>
+    (() => {
+      const path = window.location.pathname;
+      if (path.endsWith("/btob")) {
+        window.location.replace(`${path}/${window.location.search}${window.location.hash}`);
+        return;
+      }
+
+      const repoName = "NW";
+      const parts = path.split("/").filter(Boolean);
+      const repoIndex = parts.indexOf(repoName);
+      const base = repoIndex >= 0 ? `/${parts.slice(0, repoIndex + 1).join("/")}/` : "/";
+      window.location.replace(`${base}${window.location.search}${window.location.hash}`);
+    })();
+  </script>
+</body>
+</html>

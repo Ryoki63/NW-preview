@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Velvet Preview</title>
+  <meta name="description" content="Project Velvet の共有用インタラクティブHTMLモックアップ。iOS画面とオーナー向けPC画面をブラウザで確認できます。">
+  <meta name="theme-color" content="#080c11">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Project Velvet Preview">
+  <meta property="og:description" content="Project Velvet の共有用インタラクティブHTMLモックアップ。">
+  <meta property="og:url" content="https://ryoki63.github.io/NW/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://ryoki63.github.io/NW/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="final-shell">
+    <aside class="side">
+      <div class="brand">
+        <div class="brand-mark">V</div>
+        <div>
+          <strong>Velvet</strong>
+          <span>夜のおしごとアプリ</span>
+        </div>
+      </div>
+      <a class="switch-link" href="./btob/">オーナー画面 (PC) へ →</a>
+      <nav id="screenNav" class="screen-nav"></nav>
+    </aside>
+
+    <main class="stage">
+      <div class="phone">
+        <div class="island">
+          <div class="island-pulse">
+            <span class="dot"></span>
+            <span>AI</span>
+          </div>
+        </div>
+        <div class="phone-screen">
+          <div class="status">
+            <span id="statusClock">21:48</span>
+            <span>⌁ ᯤ ▰<span class="ai-chip">AI ON</span></span>
+          </div>
+          <div id="toast" class="toast" aria-live="polite">
+            <div class="toast-icon">AI</div>
+            <div class="toast-body">
+              <strong id="toastTitle">AIから</strong>
+              <p id="toastBody">見守りスタートしました</p>
+            </div>
+          </div>
+          <section id="screen" class="screen"></section>
+          <nav id="tabbar" class="tabbar" aria-label="アプリのメニュー"></nav>
+          <div class="home-line"></div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="meta">
+      <div class="ai-status">
+        <div class="ai-status-head"><span class="pip"></span> AI · 動いてるよ</div>
+        <div class="ai-task" id="aiTask">25名のお客さんの様子をチェック中…</div>
+        <div class="ai-progress"><span></span></div>
+        <div class="ai-status-foot">
+          <span id="aiSubtask">来店ペースを確認</span>
+          <span id="aiOps">0件チェック</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <span class="eyebrow">いまの画面</span>
+        <h1 id="metaTitle"></h1>
+        <p id="metaPurpose"></p>
+      </div>
+
+      <div class="panel">
+        <span class="eyebrow">AIの動き</span>
+        <div id="activityLog" class="activity-log"></div>
+      </div>
+
+      <div class="panel">
+        <span class="eyebrow">いまのデータ</span>
+        <div id="metaData" class="meta-grid"></div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

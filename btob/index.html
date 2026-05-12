@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Velvet Preview · Owner Dashboard</title>
+  <meta name="description" content="Project Velvet の共有用インタラクティブHTMLモックアップ。オーナー向けPC画面をブラウザで確認できます。">
+  <meta name="theme-color" content="#161B21">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Project Velvet Preview · Owner Dashboard">
+  <meta property="og:description" content="Project Velvet のオーナー向けPC画面モックアップ。">
+  <meta property="og:url" content="https://ryoki63.github.io/NW/btob/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://ryoki63.github.io/NW/btob/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./btob.css">
+</head>
+<body>
+  <div class="btob-shell">
+    <aside class="btob-side">
+      <a class="brand" href="../">
+        <div class="brand-mark">V</div>
+        <div>
+          <strong>Club Bouquet 銀座</strong>
+          <span>Manager dashboard</span>
+        </div>
+      </a>
+      <nav id="btobNav" class="btob-nav"></nav>
+      <div class="manager">
+        <div class="avatar">リ</div>
+        <div>
+          <strong>リナ</strong>
+          <span>チーママ / 18名管理</span>
+        </div>
+      </div>
+    </aside>
+
+    <div class="btob-workspace">
+      <header class="btob-header">
+        <div>
+          <span class="eyebrow">オーナー画面</span>
+          <h1 id="btobTitle"></h1>
+        </div>
+        <div class="header-actions">
+          <div class="ops-pill">
+            <span class="pulse"></span>
+            <strong id="opsTask">AI監視中</strong>
+            <span id="opsOps">0件チェック</span>
+          </div>
+          <button class="seg active">今月</button>
+          <button class="seg">先月</button>
+          <button class="seg">今四半期</button>
+          <button class="icon">!</button>
+          <a class="icon" href="../">iOS</a>
+        </div>
+      </header>
+      <main id="btobMain" class="btob-main"></main>
+    </div>
+  </div>
+  <script src="./btob.js"></script>
+</body>
+</html>
