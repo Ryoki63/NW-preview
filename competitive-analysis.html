@@ -516,39 +516,6 @@
       font-weight: 800;
     }
 
-    .timeline {
-      display: grid;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .phase {
-      display: grid;
-      grid-template-columns: 120px minmax(0, 1fr);
-      gap: 16px;
-      border-left: 4px solid var(--navy);
-      background: var(--surface);
-      border-radius: var(--radius);
-      padding: 15px;
-      box-shadow: 0 8px 20px rgba(24,54,74,.05);
-    }
-
-    .phase .date {
-      color: var(--brick);
-      font-family: var(--mono);
-      font-weight: 800;
-    }
-
-    .phase h3 {
-      margin: 0 0 6px;
-    }
-
-    .phase ul {
-      margin: 8px 0 0;
-      padding-left: 20px;
-      color: var(--ink-soft);
-    }
-
     .callout {
       border: 1px solid rgba(185, 99, 61, .34);
       border-radius: var(--radius);
@@ -605,8 +572,7 @@
       .two-col,
       .three-col,
       .kpi-grid { grid-template-columns: 1fr; }
-      .funnel-step,
-      .phase { grid-template-columns: 1fr; }
+      .funnel-step { grid-template-columns: 1fr; }
       .matrix { min-height: 640px; }
     }
 
@@ -644,8 +610,7 @@
         <li><a href="#positioning">4. ポジショニング</a></li>
         <li><a href="#moat">5. 勝ち筋と堀</a></li>
         <li><a href="#risk">6. リスク</a></li>
-        <li><a href="#roadmap">7. 実装ロードマップ</a></li>
-        <li><a href="#sources">8. 根拠ソース</a></li>
+        <li><a href="#sources">7. 根拠ソース</a></li>
       </ol>
     </aside>
 
@@ -662,7 +627,7 @@
           <div class="meta-row">
             <span class="tag">調査日: 2026-05-12</span>
             <span class="tag">対象: 個人キャスト / 店舗 / 会計</span>
-            <span class="tag">目的: HTMLモックからアプリ実装への判断材料</span>
+            <span class="tag">目的: 競合優位性と差別化の判断材料</span>
           </div>
         </div>
 
@@ -962,63 +927,8 @@
         </table>
       </section>
 
-      <section id="roadmap">
-        <h2>6. HTMLモックからアプリ実装へのロードマップ</h2>
-        <p>
-          次の改修は画面数の追加ではなく、3分で価値が伝わるストーリーの圧縮が重要。
-          「登録する」ではなく「売上行動が決まる」体験から始める。
-        </p>
-
-        <div class="timeline">
-          <div class="phase">
-            <div class="date">Phase 1</div>
-            <div>
-              <h3>共有モックの勝ち筋強化</h3>
-              <ul>
-                <li>ホームを「今日の売上アクション3件」に再設計</li>
-                <li>顧客詳細に「AIがこの提案をした理由」を追加</li>
-                <li>LINE文面生成を、相手別の記憶に基づく3案にする</li>
-                <li>音声メモから顧客メモ/TODO/来店記録が生成されるデモを濃くする</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="phase">
-            <div class="date">Phase 2</div>
-            <div>
-              <h3>SwiftUI MVP実装</h3>
-              <ul>
-                <li>顧客、来店、メモ、TODO、AI提案の最小データモデル</li>
-                <li>ローカル暗号化とFace IDロック</li>
-                <li>音声入力とAI構造化</li>
-                <li>AI文面生成と送信結果ログ</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="phase">
-            <div class="date">Phase 3</div>
-            <div>
-              <h3>BtoB拡張の検証</h3>
-              <ul>
-                <li>本人許可済みの売上集計</li>
-                <li>キャストの入力支援状況</li>
-                <li>店舗全体の離脱リスク/売上予測</li>
-                <li>個人の営業資産を侵害しない権限設計</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="callout">
-          <strong>次のHTML改修で最初にやること</strong>
-          iOSモックの初期画面を「顧客一覧」ではなく「AIが選んだ今日の3アクション」に寄せる。
-          この1画面で、Velvet が既存CRMではなく売上行動エンジンであることを伝える。
-        </div>
-      </section>
-
       <section id="sources">
-        <h2>7. 根拠ソース</h2>
+        <h2>6. 根拠ソース</h2>
         <p>
           以下は公開ページの確認に基づく。価格や機能は変更される可能性があるため、実装/営業資料化の直前に再確認する。
         </p>
